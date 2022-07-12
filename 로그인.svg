@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="360" height="640" viewBox="0 0 360 640">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-로그인);
+      }
+
+      .cls-2, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke: #707070;
+      }
+
+      .cls-3 {
+        font-size: 20px;
+      }
+
+      .cls-3, .cls-4 {
+        font-family: NanumGothic, Nanum Gothic;
+      }
+
+      .cls-4 {
+        font-size: 11px;
+      }
+
+      .cls-5 {
+        stroke: none;
+      }
+
+      .cls-6 {
+        fill: none;
+      }
+    </style>
+    <clipPath id="clip-로그인">
+      <rect width="360" height="640"/>
+    </clipPath>
+  </defs>
+  <g id="로그인" class="cls-1">
+    <rect class="cls-7" width="360" height="640"/>
+    <g id="사각형_1" data-name="사각형 1" class="cls-2" transform="translate(50 178)">
+      <rect class="cls-5" width="261" height="36" rx="7"/>
+      <rect class="cls-6" x="0.5" y="0.5" width="260" height="35" rx="6.5"/>
+    </g>
+    <g id="사각형_2" data-name="사각형 2" class="cls-2" transform="translate(50 265)">
+      <rect class="cls-5" width="261" height="36" rx="7"/>
+      <rect class="cls-6" x="0.5" y="0.5" width="260" height="35" rx="6.5"/>
+    </g>
+    <text id="ID" class="cls-3" transform="translate(50 172)"><tspan x="0" y="0">ID</tspan></text>
+    <text id="PW" class="cls-3" transform="translate(50 259)"><tspan x="0" y="0">PW</tspan></text>
+    <g id="사각형_3" data-name="사각형 3" class="cls-2" transform="translate(161 332)">
+      <rect class="cls-5" width="68" height="24" rx="12"/>
+      <rect class="cls-6" x="0.5" y="0.5" width="67" height="23" rx="11.5"/>
+    </g>
+    <g id="사각형_4" data-name="사각형 4" class="cls-2" transform="translate(238 332)">
+      <rect class="cls-5" width="68" height="24" rx="12"/>
+      <rect class="cls-6" x="0.5" y="0.5" width="67" height="23" rx="11.5"/>
+    </g>
+    <text id="로그인-2" data-name="로그인" class="cls-4" transform="translate(180 348)"><tspan x="0" y="0">로그인</tspan></text>
+    <text id="회원가입" class="cls-4" transform="translate(252 348)"><tspan x="0" y="0">회원가입</tspan></text>
+  </g>
+</svg>
