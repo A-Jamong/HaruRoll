@@ -17,7 +17,7 @@
         android:translationY="152dp" />
     <!-- 아이디 입력 상자 -->
     <EditText
-        android:id="@+id/signup_id"
+        android:id="@+id/signin_id"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:ems="10"

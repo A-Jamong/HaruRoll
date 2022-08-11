@@ -9,3 +9,4 @@ class signup_page : AppCompatActivity() {
         setContentView(R.layout.activity_signup_page)
     }
 }
+
