@@ -13,12 +13,12 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import kotlinx.android.synthetic.main.main_session.*
 import kotlinx.android.synthetic.main.roadimage.*
 import java.io.InputStream
 import java.util.jar.Manifest
 
 class roadimage : AppCompatActivity() {
-    private var uri: Uri? =null
     val FLAG_REQ_STORAGE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,9 +26,6 @@ class roadimage : AppCompatActivity() {
         setContentView(R.layout.roadimage)
         img_bt.setOnClickListener{
             checkPermission()
-        }
-        button2.setOnClickListener {
-            sessionimg.setImageResource(R.drawable.box_rectangular)
         }
     }
     private fun checkPermission(){
@@ -59,7 +56,7 @@ class roadimage : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         startActivityForResult(intent,FLAG_REQ_STORAGE)
-        Toast.makeText(this, "갤러리를 실행합니다.", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "갤러리를 실행합니다.", Toast.LENGTH_SHORT).show()
     }
     private fun requestPermission(){
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 99)
@@ -71,16 +68,12 @@ class roadimage : AppCompatActivity() {
             resultCode,
             data
         )
-        if(requestCode==RESULT_OK){
+        if(resultCode==RESULT_OK){
             when(requestCode){
                 FLAG_REQ_STORAGE->{
-                    uri = data?.data
+                    val uri = data?.data
                     sessionimg.setImageURI(uri)
                 }
             }
-        }else{
-        Toast.makeText(this, "?", Toast.LENGTH_SHORT).show()}
     }
-
-
-}
+}}
