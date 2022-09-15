@@ -53,28 +53,28 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/box_little_round_rectangular" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/session_select_02"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/box_little_round_rectangular" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/session_select_03"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/box_little_round_rectangular" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/session_select_04"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/box_little_round_rectangular" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/session_select_05"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"

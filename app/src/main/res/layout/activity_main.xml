@@ -1,71 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="@color/beige">
     <!-- ID -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="54dp"
+        android:fontFamily="@font/kopubworld_dotum_bold"
+        android:text="하루롤"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="135dp"
+        android:background="@drawable/login_rect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="94dp"
+        android:fontFamily="@font/kopubworld_dotum_bold"
+        android:text="하루에 한 번 롤플레잉!"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="210dp"
+        android:fontFamily="@font/kopubworld_dotum_bold"
         android:text="아이디"
-        android:textColor="#000000"
+        android:textColor="@color/beige"
         android:textSize="16sp"
         android:textStyle="normal"
-        android:translationX="24dp"
-        android:translationY="152dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- 아이디 입력 상자 -->
     <EditText
         android:id="@+id/signin_id"
-        android:layout_width="360dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="238dp"
         android:ems="10"
         android:hint="아이디를 입력해주세요"
-        android:translationX="20dp"
-        android:translationY="174dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- 비밀번호 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="336dp"
+        android:fontFamily="@font/kopubworld_dotum_bold"
         android:text="비밀번호"
-        android:textColor="#000000"
+        android:textColor="@color/beige"
         android:textSize="16sp"
         android:textStyle="normal"
-        android:translationX="24dp"
-        android:translationY="238dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- 비밀번호 입력 상자 -->
     <EditText
         android:id="@+id/input_pw"
-        android:layout_width="360dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="362dp"
         android:ems="10"
         android:hint="비밀번호를 입력해주세요"
         android:inputType="textPassword"
-        android:translationX="20dp"
-        android:translationY="260dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!--로그인 버튼-->
 
     <Button
         android:id="@+id/bt_login"
-        android:layout_width="80dp"
+        android:layout_width="260dp"
         android:layout_height="30dp"
-        android:background="@drawable/box_round_rectangular"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="460dp"
+        android:background="@drawable/bt_login"
+        android:fontFamily="@font/kopubworld_dotum_bold"
         android:text="로그인"
         android:textSize="14sp"
-        android:translationX="200dp"
-        android:translationY="338dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!--회원가입 버튼-->
     <Button
         android:id="@+id/bt_signup"
-        android:layout_width="80dp"
+        android:layout_width="260dp"
         android:layout_height="30dp"
-        android:background="@drawable/box_round_rectangular"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="504dp"
+        android:background="@drawable/bt_gosignup"
+        android:fontFamily="@font/kopubworld_dotum_bold"
         android:text="회원가입"
         android:textSize="14sp"
-        android:translationX="290dp"
-        android:translationY="338dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

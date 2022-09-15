@@ -13,6 +13,10 @@ class main_session : AppCompatActivity() {
             val intent = Intent(this, roadimage::class.java)
             startActivity(intent)
         }
+        session_select_02.setOnClickListener{
+            val intent = Intent(this, roadimage::class.java)
+            startActivity(intent)
+        }
     }
 }
 
