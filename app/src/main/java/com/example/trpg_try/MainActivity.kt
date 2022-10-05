@@ -7,9 +7,12 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
+import com.example.trpg_try.api.Login
+import com.example.trpg_try.api.send_Login
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_signup_page.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,36 +29,40 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, signup_page::class.java)
             startActivity(intent)
         }
-
-        //retrofit 객체
-        var retrofit = Retrofit.Builder()
-            .baseUrl("https://riul.pythonanywhere.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        var LoginService = retrofit.create(LoginService::class.java) //retrofit 객체를 서비스에 얹어줌
-
         bt_login.setOnClickListener {
+//            var textID = signin_id.text.toString()
+//            var textPW = input_pw.text.toString()
+//            var respond = send_Login(textID, textPW)
+//
+//            if (respond.equals("0000")) {
+//                //다음페이지로 이동
+//                Log.d("Send_login: ","success")
+//                val intent = Intent(this@MainActivity, main_session::class.java)
+//                startActivity(intent)
+//            }
             var textID = signin_id.text.toString()
             var textPW = input_pw.text.toString()
-            LoginService.requestLogin(textID, textPW).enqueue(object : Callback<Login> {
+            send_Login.call(textID, textPW).enqueue(object : Callback<Login> {
                 override fun onResponse(call: Call<Login>, response: Response<Login>) {
                     //통신성공
                     var login = response.body()
-                    var dialog = AlertDialog.Builder(this@MainActivity)
-                    dialog.setTitle("통신성공!")
-                    dialog.setMessage("code= " + login?.code + ", msg" + login?.msg) //response가 null일수도 있어서 '?'추가
-                    dialog.show()
+                    var sessionID = login?.sessionID
                     //통신 성공했을 때 화면 넘어가게
-                    val intent = Intent(this@MainActivity, main_session::class.java)
-                    startActivity(intent)
-
+                    if (login?.code.equals("0000")) {
+                        val intent = Intent(this@MainActivity, main_session::class.java)
+                        startActivity(intent)
+                    }
+                    else {
+                        var dialog = AlertDialog.Builder(this@MainActivity)
+                        dialog.setMessage("["+login?.code + "]" + login?.msg) //response가 null일수도 있어서 '?'추가
+                        dialog.show()
+                    }
                 }
                 override fun onFailure(call: Call<Login>, t: Throwable) {
                     //웹통신 실패시
                     //Log.d("DEBUG",t.message)
                     var dialog = AlertDialog.Builder(this@MainActivity)
-                    dialog.setTitle("통신실패!")
-                    dialog.setMessage("통신에 실패했습니다.")
+                    dialog.setMessage("서버 연결에 실패했습니다.")
                     dialog.show()
                 }
             }

@@ -18,6 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TRPG_TRY"
         tools:targetApi="31">
+        android:requestLegacyExternalStorage="true"
+
         <activity
             android:name=".roadimage"
             android:exported="false"/>

@@ -1,24 +1,35 @@
 package com.example.trpg_try
 
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
+import android.os.FileUtils
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
+import com.example.trpg_try.lib.getRealPathFromURI
+import com.example.trpg_try.session_create.send_SessionCreate
 import kotlinx.android.synthetic.main.main_session.*
 import kotlinx.android.synthetic.main.roadimage.*
-import java.io.InputStream
-import java.util.jar.Manifest
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+
 
 class roadimage : AppCompatActivity() {
+
+    //통신을 위한 retrofit 객체
+    var retrofit = Retrofit.Builder()
+        .baseUrl("https://riul.pythonanywhere.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+
     val FLAG_REQ_STORAGE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,11 +63,21 @@ class roadimage : AppCompatActivity() {
             }
         }
     }
+
     private fun openGallery(){
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         startActivityForResult(intent,FLAG_REQ_STORAGE)
         Toast.makeText(this, "갤러리를 실행합니다.", Toast.LENGTH_SHORT).show()
+
+        //intent를 써야해서 여기다 작성했는데... 수정가능합니까?
+
+//        val chooserIntent = Intent(Intent.ACTION_CHOOSER)
+//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//        intent.type = "image/*"
+//        chooserIntent.putExtra(Intent.EXTRA_INTENT, intent)
+//        chooserIntent.putExtra(Intent.EXTRA_TITLE,"사용할 앱을 선택해주세요.")
+
     }
     private fun requestPermission(){
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 99)
@@ -75,5 +96,19 @@ class roadimage : AppCompatActivity() {
                     sessionimg.setImageURI(uri)
                 }
             }
+
+            // 저장 버튼 누르면 서버로 전송하게끔 하면 좋을듯!!
+            val uri = data?.data
+            val path = getRealPathFromURI(applicationContext, uri!!)
+            val file = File(path)
+            //println(file)
+            val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+            val body = MultipartBody.Part.createFormData("character", file.name, requestFile)
+
+            Log.d("file to multipart",file.name)
+            send_SessionCreate("session1",body)
+
+            Toast.makeText(this, "절대좌표변환", Toast.LENGTH_SHORT).show()
+
     }
 }}
