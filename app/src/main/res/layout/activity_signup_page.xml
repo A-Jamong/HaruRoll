@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:paddingStart="15dp"
+    android:background="@color/beige"
     >
 
     <!--회원가입-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="회원가입"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:translationX="20dp"
-        android:translationY="72dp" />
     <!--아이디 입력 창-->
-    <EditText
-        android:id="@+id/signup_id"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:background="@drawable/box_little_round_rectangular"
-        android:paddingLeft="12dp"
-        android:paddingTop="8dp"
-        android:textSize="14sp"
-        android:translationX="20dp"
-        android:translationY="110dp" />
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="아이디"
-        android:textSize="12sp"
-        android:translationX="26dp"
-        android:translationY="112dp" />
+        android:layout_marginTop="44dp"
+        android:fontFamily="sans-serif-black"
+        android:text="아이디와 비밀번호로\n쉽게 시작할 수 있어요!"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/signup_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/signup_contents"
+        android:hint="아이디"
+        android:paddingStart="14dp"
+        android:paddingTop="14dp"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
     <!--중복확인 버튼-->
     <Button
         android:id="@+id/bt_idoverlap"
@@ -48,6 +52,7 @@
         android:translationX="280dp"
         android:translationY="110dp" />
     <!--비밀번호 입력 창-->
+
     <EditText
         android:id="@+id/signup_pw"
         android:layout_width="250dp"
@@ -57,7 +62,9 @@
         android:paddingLeft="12dp"
         android:paddingTop="8dp"
         android:translationX="20dp"
-        android:translationY="170dp" />
+        android:translationY="170dp"
+        tools:layout_editor_absoluteX="-4dp"
+        tools:layout_editor_absoluteY="124dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -157,4 +164,4 @@
         android:translationY="414dp" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

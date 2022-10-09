@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                         dialog.show()
                     }
                 }
+
                 override fun onFailure(call: Call<Login>, t: Throwable) {
                     //웹통신 실패시
                     //Log.d("DEBUG",t.message)
