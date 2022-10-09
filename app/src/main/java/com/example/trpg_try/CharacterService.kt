@@ -15,3 +15,4 @@ interface CharacterService{
         //@Field("password") password:String
     ):Call<CharacterRes> //output
 }
+//
