@@ -11,18 +11,21 @@
     <!--회원가입-->
     <!--아이디 입력 창-->
 
+    <!--중복확인 버튼-->
+    <!--비밀번호 입력 창-->
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-black"
         android:text="아이디와 비밀번호로\n쉽게 시작할 수 있어요!"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,138 +33,149 @@
         android:id="@+id/signup_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:background="@drawable/signup_contents"
         android:hint="아이디"
-        android:paddingStart="14dp"
-        android:paddingTop="14dp"
+        android:paddingStart="20dp"
         android:textAlignment="viewStart"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <!--중복확인 버튼-->
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/signup_contents"
+        android:fontFamily="sans-serif"
+        android:hint="닉네임"
+        android:paddingStart="20dp"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_id" />
+
+    <EditText
+        android:id="@+id/overlap_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/signup_contents"
+        android:fontFamily="sans-serif"
+        android:hint="비밀번호 확인"
+        android:paddingStart="20dp"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_password" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/signup_contents"
+        android:fontFamily="sans-serif"
+        android:hint="이메일"
+        android:paddingStart="20dp"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/overlap_password" />
+
+    <EditText
+        android:id="@+id/input_authentication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/signup_contents"
+        android:fontFamily="sans-serif"
+        android:hint="인증번호 입력"
+        android:paddingStart="20dp"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
     <Button
         android:id="@+id/bt_idoverlap"
-        android:layout_width="66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/box_little_round_rectangular"
-        android:text="중복확인"
-        android:translationX="280dp"
-        android:translationY="110dp" />
-    <!--비밀번호 입력 창-->
-
-    <EditText
-        android:id="@+id/signup_pw"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:background="@drawable/box_little_round_rectangular"
-        android:inputType="textPassword"
-        android:paddingLeft="12dp"
-        android:paddingTop="8dp"
-        android:translationX="20dp"
-        android:translationY="170dp"
-        tools:layout_editor_absoluteX="-4dp"
-        tools:layout_editor_absoluteY="124dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호"
-        android:textSize="12sp"
-        android:translationX="26dp"
-        android:translationY="172dp" />
+        android:background="#00FFFFFF"
+        android:text="중복확인"
+        android:textColor="@color/dark_brown"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/signup_id"
+        app:layout_constraintEnd_toEndOf="@+id/signup_id"
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toStartOf="@+id/signup_id"
+        app:layout_constraintTop_toTopOf="@+id/signup_id" />
 
     <!--비밀번호 확인 창-->
+
+    <Button
+        android:id="@+id/check_authentication"
+        android:layout_width="90dp"
+        android:layout_height="43dp"
+        android:background="#00FFFFFF"
+        android:text="인증확인"
+        android:textColor="@color/dark_brown"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/input_authentication"
+        app:layout_constraintEnd_toEndOf="@+id/input_authentication"
+        app:layout_constraintHorizontal_bias="0.91"
+        app:layout_constraintStart_toStartOf="@+id/input_authentication"
+        app:layout_constraintTop_toTopOf="@+id/input_authentication" />
+
+    <Button
+        android:id="@+id/check_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:text="메일인증"
+        android:textColor="@color/dark_brown"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/email"
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintHorizontal_bias="0.91"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/overlap_password" />
+
     <EditText
-        android:id="@+id/signup_checkpw"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:background="@drawable/box_little_round_rectangular"
+        android:id="@+id/signup_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/signup_contents"
+        android:fontFamily="sans-serif"
+        android:hint="비밀번호"
         android:inputType="textPassword"
-        android:paddingLeft="12dp"
-        android:paddingTop="8dp"
-        android:translationX="20dp"
-        android:translationY="230dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="비밀번호 확인"
-        android:textSize="12sp"
-        android:translationX="26dp"
-        android:translationY="232dp" />
-
-    <!--이메일 입력 창-->
-    <EditText
-        android:id="@+id/signup_mail"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:background="@drawable/box_little_round_rectangular"
-        android:paddingLeft="12dp"
-        android:paddingTop="8dp"
-        android:translationX="20dp"
-        android:translationY="290dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이메일"
-        android:textSize="12sp"
-        android:translationX="26dp"
-        android:translationY="292dp" />
-    <!--이메일 전송 버튼-->
-    <Button
-        android:id="@+id/bt_sendmail"
-        android:layout_width="66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/box_little_round_rectangular"
-        android:text="인증 메일 보내기"
-        android:translationX="280dp"
-        android:translationY="290dp" />
-
-    <!--인증번호 입력 창-->
-    <EditText
-        android:id="@+id/signup_checkmail"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:background="@drawable/box_little_round_rectangular"
-        android:paddingLeft="12dp"
-        android:paddingTop="8dp"
-        android:translationX="20dp"
-        android:translationY="350dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="인증번호"
-        android:textSize="12sp"
-        android:translationX="26dp"
-        android:translationY="352dp" />
-    <!--인증번호 확인 버튼-->
-    <Button
-        android:id="@+id/bt_checkmail"
-        android:layout_width="66dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/box_little_round_rectangular"
-        android:text="인증번호 확인"
-        android:translationX="280dp"
-        android:translationY="350dp" />
-
-    <!--회원가입 버튼-->
-    <Button
-        android:id="@+id/bt_endsignup"
-        android:layout_width="336dp"
-        android:layout_height="48dp"
-        android:background="@drawable/box_rectangular"
-        android:text="회원가입"
+        android:paddingStart="20dp"
+        android:textAlignment="viewStart"
         android:textSize="14sp"
-        android:translationX="22dp"
-        android:translationY="414dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nickname" />
+
+    <Button
+        android:id="@+id/signup_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bt_signupend"
+        android:fontFamily="@font/kopubworld_dotum_bold"
+        android:text="가입하기"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_authentication" />
 
 
 </android.support.constraint.ConstraintLayout>

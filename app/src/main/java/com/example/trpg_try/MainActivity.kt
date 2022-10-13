@@ -66,6 +66,9 @@ class MainActivity : AppCompatActivity() {
                     var dialog = AlertDialog.Builder(this@MainActivity)
                     dialog.setMessage("서버 연결에 실패했습니다.")
                     dialog.show()
+                    //일단 바로 넘어가게
+                    val intent = Intent(this@MainActivity, main_session::class.java)
+                    startActivity(intent)
                 }
             }
             )
