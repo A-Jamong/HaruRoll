@@ -8,12 +8,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+var AppSessionKey = "-1"
 object RetrofitSetting{
     val httpClient = OkHttpClient.Builder()
     //retrofit 객체
     val baseBuilder = Retrofit.Builder()
-        .baseUrl("http://192.168.0.5:8000")//"https://riul.pythonanywhere.com/"
+        .baseUrl("https://riul.pythonanywhere.com/")//"http://192.168.0.5:8000"
         .addConverterFactory(GsonConverterFactory.create())
     //객체생성
     fun <S> createBaseService(serviceClass: Class<S>?):S{
