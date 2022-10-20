@@ -61,8 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="238dp"
-        android:ems="10"
         android:hint="아이디를 입력해주세요"
+        android:maxLength="10"
+        android:inputType="textPersonName"
         android:textColorHighlight="@color/beige"
 
 
