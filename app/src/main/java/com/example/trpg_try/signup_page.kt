@@ -16,11 +16,12 @@ class signup_page : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup_page)
 
-        bt_endsignup.setOnClickListener{
+        signup_end.setOnClickListener{
             var userid = signup_id.text.toString()
-            var pw = signup_pw.text.toString()
-            var pw2 = signup_checkpw.text.toString()
-            var email = signup_mail.text.toString()
+            var nickname = nickname.text.toString()
+            var pw = signup_password.text.toString()
+            var pw2 = overlap_password.text.toString()
+            var email = email.text.toString()
             var B_EmailCheck = true
             var B_PwCheck = false
             if (userid.isBlank()){
@@ -61,8 +62,8 @@ class signup_page : AppCompatActivity() {
             }
             if(B_PwCheck && B_EmailCheck) {
 
-                // password 맞으면 통신
-                send_SignUp.call(email, userid, pw).enqueue(object : Callback<SignUp> {
+                // password 맞으면 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                send_SignUp.call(userid, email, nickname, pw).enqueue(object : Callback<SignUp> {
                     override fun onResponse(
                         call: Call<SignUp>,
                         response: Response<SignUp>
@@ -87,6 +88,7 @@ class signup_page : AppCompatActivity() {
                         dialog.show()
                     }
                 })
+                //@@@@@@@@@@@@@@@@@@@@@@여기까지 찐 통신부분~~~~~~~~~~@@@@@@@@@@@@@@@@@@@@@@
             }
 
         }

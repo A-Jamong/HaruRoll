@@ -20,8 +20,9 @@ interface SignUpService{
     @POST ("/signup/") //실제 서버 주소 뒤에 붙는 url
     fun requestSignUp(
         // input
+        @Field("userid") userid:String,
         @Field("email") email:String,
-        @Field("username") username:String,
+        @Field("nickname") nickname:String,
         @Field("password") password:String
     ):Call<SignUp> //output
 
@@ -29,7 +30,7 @@ interface SignUpService{
 object send_SignUp{
     val service = RetrofitSetting.createBaseService(SignUpService::class.java) //레트로핏 통신 설정
     //객체생성
-    fun call(email:String, username: String ,password : String):Call<SignUp>{
-        return service.requestSignUp(email, username, password)!!
+    fun call(userid: String, email: String, nickname: String ,password : String):Call<SignUp>{
+        return service.requestSignUp(userid, email, nickname , password)!!
     }
 }
