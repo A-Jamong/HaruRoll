@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import com.example.trpg_try.api.AppSessionKey
 import com.example.trpg_try.api.Login
 import com.example.trpg_try.api.send_Login
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<Login>, response: Response<Login>) {
                     //통신성공
                     var login = response.body()
-                    var sessionID = login?.sessionID
+                    AppSessionKey = login?.AppSessionKey!!
                     //통신 성공했을 때 화면 넘어가게
                     if (login?.code.equals("0000")) {
                         val intent = Intent(this@MainActivity, main_session::class.java)

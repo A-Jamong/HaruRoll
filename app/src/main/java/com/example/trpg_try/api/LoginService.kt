@@ -14,7 +14,7 @@ import java.io.IOException
 data class Login (
     var code: String,
     var msg: String,
-    var sessionID: String,
+    var AppSessionKey: String,
 )
 interface LoginService{
     @FormUrlEncoded
