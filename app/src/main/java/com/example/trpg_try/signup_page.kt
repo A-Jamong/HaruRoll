@@ -3,8 +3,7 @@ package com.example.trpg_try
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import com.example.trpg_try.api.SignUp
-import com.example.trpg_try.api.send_SignUp
+import com.example.trpg_try.api.*
 import kotlinx.android.synthetic.main.activity_signup_page.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,13 +15,77 @@ class signup_page : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup_page)
 
+        var B_EmailCheck = false
+        check_email.setOnClickListener {
+            var email = email.text.toString()
+            if(! email.isBlank()){
+                //send_VerificationEmail(email)
+                send_VerificationEmail.call(email).enqueue(object : Callback<MSG> {
+                    override fun onResponse(
+                        call: Call<MSG>,
+                        response: Response<MSG>
+                    ) {
+                        var signup = response.body()
+                        if (signup?.code.equals("0000")) {
+                            var dialog = AlertDialog.Builder(this@signup_page)
+                            dialog.setMessage(signup?.msg) //response가 null일수도 있어서 '?'추가
+                            dialog.show()
+                            B_EmailCheck = true
+                        } else {
+                            var dialog = AlertDialog.Builder(this@signup_page)
+                            dialog.setMessage("[" + signup?.code + "]" + signup?.msg) //response가 null일수도 있어서 '?'추가
+                            dialog.show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<MSG>, t: Throwable) {
+                        //웹통신 실패시
+                        //Log.d("DEBUG",t.message)
+                        var dialog = AlertDialog.Builder(this@signup_page)
+                        dialog.setMessage("서버 연결에 실패했습니다.")
+                        dialog.show()
+                    }
+                })
+            }
+        }
+        check_authentication.setOnClickListener {
+            var email = email.text.toString()
+            var I_authentication = input_authentication.text.toString()
+            if(! (email.isBlank()||I_authentication.isBlank()) ){
+                check_VerificationEmail.call(email,I_authentication).enqueue(object : Callback<MSG> {
+                    override fun onResponse(
+                        call: Call<MSG>,
+                        response: Response<MSG>
+                    ) {
+                        var signup = response.body()
+                        if (signup?.code.equals("0000")) {
+                            var dialog = AlertDialog.Builder(this@signup_page)
+                            dialog.setMessage(signup?.msg) //response가 null일수도 있어서 '?'추가
+                            dialog.show()
+                        } else {
+                            var dialog = AlertDialog.Builder(this@signup_page)
+                            dialog.setMessage("[" + signup?.code + "]" + signup?.msg) //response가 null일수도 있어서 '?'추가
+                            dialog.show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<MSG>, t: Throwable) {
+                        //웹통신 실패시
+                        //Log.d("DEBUG",t.message)
+                        var dialog = AlertDialog.Builder(this@signup_page)
+                        dialog.setMessage("서버 연결에 실패했습니다.")
+                        dialog.show()
+                    }
+                })
+            }
+        }
+
         signup_end.setOnClickListener{
             var userid = signup_id.text.toString()
             var nickname = nickname.text.toString()
             var pw = signup_password.text.toString()
             var pw2 = overlap_password.text.toString()
             var email = email.text.toString()
-            var B_EmailCheck = true
             var B_PwCheck = false
             if (userid.isBlank()){
                 var dialog = AlertDialog.Builder(this@signup_page)
