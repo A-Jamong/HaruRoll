@@ -65,8 +65,6 @@
         android:maxLength="10"
         android:inputType="textPersonName"
         android:textColorHighlight="@color/beige"
-
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <!-- 비밀번호 -->
@@ -89,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="362dp"
-        android:ems="10"
+        android:maxLength="10"
         android:hint="비밀번호를 입력해주세요"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
