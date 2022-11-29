@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<Login>, response: Response<Login>) {
                     //통신성공
                     var login = response.body()
-                    AppSessionKey = login?.AppSessionKey!!
                     //통신 성공했을 때 화면 넘어가게
                     if (login?.code.equals("0000")) {
+                        AppSessionKey = login?.AppSessionKey!!
                         val intent = Intent(this@MainActivity, main_session::class.java)
                         startActivity(intent)
                     }

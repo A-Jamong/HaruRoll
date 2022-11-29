@@ -7,7 +7,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
-
+// 이메일 발송
 data class MSG (
     var code: String,
     var msg: String,
@@ -44,6 +44,7 @@ object check_VerificationEmail{
         return service.checkEmail(email,code)!!
     }
 }
+
 fun send_VerificationEmail2(email: String) : String {
     // 사용하지 않는 함수입니당.
     val service = RetrofitSetting.createBaseService(SendVerificationEmailService::class.java) //레트로핏 통신 설정

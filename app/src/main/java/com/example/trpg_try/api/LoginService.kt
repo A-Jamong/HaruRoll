@@ -18,10 +18,10 @@ data class Login (
 )
 interface LoginService{
     @FormUrlEncoded
-    @POST ("/signin/") //실제 서버 주소 뒤에 붙는 url
+    @POST ("/accounts/signin/") //실제 서버 주소 뒤에 붙는 url
     fun requestLogin(
         // input
-        @Field("email") email:String,
+        @Field("userid") email:String,
         @Field("password") password:String
     ):Call<Login> //output
 

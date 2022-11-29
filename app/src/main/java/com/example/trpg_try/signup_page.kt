@@ -18,6 +18,38 @@ class signup_page : AppCompatActivity() {
         setContentView(R.layout.activity_signup_page)
 
         var B_EmailCheck = false
+        var B_idoverlap = false
+        bt_idoverlap.setOnClickListener {
+            var userid = signup_id.text.toString()
+            if(! userid.isBlank()){
+                check_IDOverlap.call(userid).enqueue(object : Callback<MSG> {
+                    override fun onResponse(
+                        call: Call<MSG>,
+                        response: Response<MSG>
+                    ) {
+                        var signup = response.body()
+                        if (signup?.code.equals("0000")) {
+                            var dialog = AlertDialog.Builder(this@signup_page)
+                            dialog.setMessage(signup?.msg) //response가 null일수도 있어서 '?'추가
+                            dialog.show()
+                            B_idoverlap = true
+                        } else {
+                            var dialog = AlertDialog.Builder(this@signup_page)
+                            dialog.setMessage("[" + signup?.code + "]" + signup?.msg) //response가 null일수도 있어서 '?'추가
+                            dialog.show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<MSG>, t: Throwable) {
+                        //웹통신 실패시
+                        //Log.d("DEBUG",t.message)
+                        var dialog = AlertDialog.Builder(this@signup_page)
+                        dialog.setMessage("서버 연결에 실패했습니다.")
+                        dialog.show()
+                    }
+                })
+            }
+        }
         check_email.setOnClickListener {
             var email = email.text.toString()
             if(! email.isBlank()){
@@ -94,9 +126,19 @@ class signup_page : AppCompatActivity() {
                 dialog.setMessage("아이디를 입력해주세요") //response가 null일수도 있어서 '?'추가
                 dialog.show()
             }
+            else if (! B_idoverlap){
+                var dialog = AlertDialog.Builder(this@signup_page)
+                dialog.setMessage("아이디 중복여부를 확인해주세요") //response가 null일수도 있어서 '?'추가
+                dialog.show()
+            }
             else if (pw.isBlank()){
                 var dialog = AlertDialog.Builder(this@signup_page)
                 dialog.setMessage("패스워드를 입력해주세요") //response가 null일수도 있어서 '?'추가
+                dialog.show()
+            }
+            else if (! B_EmailCheck){
+                var dialog = AlertDialog.Builder(this@signup_page)
+                dialog.setMessage("이메일을 인증해주세요") //response가 null일수도 있어서 '?'추가
                 dialog.show()
             }
             else {
@@ -120,12 +162,8 @@ class signup_page : AppCompatActivity() {
                     dialog.show()
                 }
             }
-            if (! B_EmailCheck){
-                var dialog = AlertDialog.Builder(this@signup_page)
-                dialog.setMessage("이메일을 확인해주세요") //response가 null일수도 있어서 '?'추가
-                dialog.show()
-            }
-            if(B_PwCheck && B_EmailCheck) {
+
+            if(B_PwCheck) {
 
                 // password 맞으면 통신 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
                 send_SignUp.call(userid, email, nickname, pw).enqueue(object : Callback<SignUp> {
@@ -140,6 +178,7 @@ class signup_page : AppCompatActivity() {
                             dialog.show()
                             val intent = Intent(this@signup_page, make_char::class.java)
                             startActivity(intent)
+
                         } else {
                             var dialog = AlertDialog.Builder(this@signup_page)
                             dialog.setMessage("[" + signup?.code + "]" + signup?.msg) //response가 null일수도 있어서 '?'추가
