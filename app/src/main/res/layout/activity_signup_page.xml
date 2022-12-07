@@ -152,6 +152,15 @@
         app:layout_constraintStart_toStartOf="@+id/email"
         app:layout_constraintTop_toBottomOf="@+id/overlap_password" />
 
+    <TextView
+        android:id="@+id/countTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/kopubworld_dotum_bold"
+        app:layout_constraintStart_toEndOf="@+id/email"
+        app:layout_constraintTop_toTopOf="@+id/check_email" />
+
     <EditText
         android:id="@+id/signup_password"
         android:layout_width="wrap_content"

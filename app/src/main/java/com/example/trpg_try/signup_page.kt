@@ -3,7 +3,9 @@ package com.example.trpg_try
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
+import android.view.View
 import com.example.trpg_try.api.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_signup_page.*
@@ -81,6 +83,18 @@ class signup_page : AppCompatActivity() {
                     }
                 })
             }
+            var timer = 180
+            countTimer.visibility = View.VISIBLE
+            object :CountDownTimer(300000, 1000){
+                override fun onTick(p0: Long) {
+                    countTimer.text = timer.toString() + "초"
+                    timer --
+                }
+
+                override fun onFinish() {
+                    countTimer.visibility = View.INVISIBLE
+                }
+            }.start()
         }
         check_authentication.setOnClickListener {
             var email = email.text.toString()
