@@ -7,7 +7,6 @@ import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.example.trpg_try.api.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_signup_page.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -190,7 +189,7 @@ class signup_page : AppCompatActivity() {
                             var dialog = AlertDialog.Builder(this@signup_page)
                             dialog.setMessage(signup?.msg) //response가 null일수도 있어서 '?'추가
                             dialog.show()
-                            val intent = Intent(this@signup_page, make_char::class.java)
+                            val intent = Intent(this@signup_page, main_list::class.java)
                             startActivity(intent)
 
                         } else {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/beige"
-    tools:context=".make_char"
+    tools:context=".main_list"
     tools:ignore="ExtraText">
 
     <ImageView
