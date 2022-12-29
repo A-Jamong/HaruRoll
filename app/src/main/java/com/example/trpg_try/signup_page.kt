@@ -1,10 +1,10 @@
 package com.example.trpg_try
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.example.trpg_try.api.*
 import kotlinx.android.synthetic.main.activity_signup_page.*
@@ -17,7 +17,6 @@ class signup_page : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup_page)
-
         var B_EmailCheck = false
         var B_idoverlap = false
         bt_idoverlap.setOnClickListener {
