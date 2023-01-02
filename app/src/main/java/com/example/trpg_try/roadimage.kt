@@ -3,7 +3,6 @@ package com.example.trpg_try
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.FileUtils
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -11,7 +10,6 @@ import android.util.Log
 import android.widget.Toast
 import com.example.trpg_try.lib.getRealPathFromURI
 import com.example.trpg_try.session_create.send_SessionCreate
-import kotlinx.android.synthetic.main.main_session.*
 import kotlinx.android.synthetic.main.roadimage.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -111,4 +109,5 @@ class roadimage : AppCompatActivity() {
             Toast.makeText(this, "절대좌표변환", Toast.LENGTH_SHORT).show()
 
     }
-}}
+}
+}

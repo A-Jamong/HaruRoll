@@ -10,8 +10,6 @@ class main_list : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_list)
 
-
-
         bt_newchar.setOnClickListener{
             val intent = Intent(this@main_list, make_char::class.java)
             startActivity(intent)
