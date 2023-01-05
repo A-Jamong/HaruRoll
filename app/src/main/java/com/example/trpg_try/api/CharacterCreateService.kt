@@ -17,7 +17,18 @@ data class CharacterCreate_o (
 interface CharacterCreateService {
     //@FormUrlEncoded
     @Multipart
-    @POST ("/character/create/")
+    @POST ("/character/create_wImg/")
+    fun CharCreate(
+        // input
+        @Part ("AppSessionKey") AppSessionKey: String,
+        @Part("charname") charname:String,
+        @Part("charbio") charbio:String,
+    ):Call<CharacterCreate_o> //output
+}
+interface CharacterCreateServiceWImg {
+    //@FormUrlEncoded
+    @Multipart
+    @POST ("/character/create_wImg/")
     fun CharCreate(
         // input
         @Part ("AppSessionKey") AppSessionKey: String,
@@ -26,11 +37,17 @@ interface CharacterCreateService {
         @Part charfigure : MultipartBody.Part,
     ):Call<CharacterCreate_o> //output
 }
-
+//웹서버로 전송
+object send_CharacterCreate_wImg{
+    val service = RetrofitSetting.createBaseService(CharacterCreateServiceWImg::class.java) //레트로핏 통신 설정
+    fun call(charactername: String ,characterbio : String ,image : MultipartBody.Part):Call<CharacterCreate_o>{
+        return service.CharCreate(AppSessionKey,charactername,characterbio,image )
+    }
+}
 //웹서버로 전송
 object send_CharacterCreate{
     val service = RetrofitSetting.createBaseService(CharacterCreateService::class.java) //레트로핏 통신 설정
-    fun call(charactername: String ,characterbio : String ,image : MultipartBody.Part):Call<CharacterCreate_o>{
-        return service.CharCreate(AppSessionKey,charactername,characterbio,image )
+    fun call(charactername: String ,characterbio : String ):Call<CharacterCreate_o>{
+        return service.CharCreate(AppSessionKey,charactername,characterbio)
     }
 }

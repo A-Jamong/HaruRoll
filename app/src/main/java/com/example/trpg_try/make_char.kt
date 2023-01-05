@@ -12,7 +12,9 @@ import android.view.View
 import android.widget.Toast
 import com.example.trpg_try.api.AppSessionKey
 import com.example.trpg_try.api.Login
+import com.example.trpg_try.character_create.CharacterCreate_o
 import com.example.trpg_try.character_create.send_CharacterCreate
+import com.example.trpg_try.character_create.send_CharacterCreate_wImg
 import com.example.trpg_try.lib.getRealPathFromURI
 import com.example.trpg_try.session_create.send_SessionCreate
 import kotlinx.android.synthetic.main.activity_make_char.*
@@ -28,57 +30,82 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
 class make_char : AppCompatActivity() {
-        //통신을 위한 retrofit 객체
-        var retrofit = Retrofit.Builder()
-            .baseUrl("https://riul.pythonanywhere.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-    val uri=""
+    val FLAG_REQ_STORAGE = 100
+    var path=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_make_char)
         make_charprofile.setOnClickListener{
             checkPermission()
         }
+
         make_bt.setOnClickListener {
             var charactername = make_charname.text.toString()
             var characterbio = edit_word.text.toString()
+            if (charactername.length in 1..10 && characterbio.length in 0..20) {
+                if (path.isNotEmpty()) {
+                    val file = File(path)
+                    val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+                    val body =
+                        MultipartBody.Part.createFormData("character", file.name, requestFile)
+                    //이미지 크기 제한 두어야 함!! 혹은 여기서 변환해줄것!!
+                    send_CharacterCreate_wImg.call(charactername, characterbio, body)
+                        .enqueue(object : Callback<CharacterCreate_o> {
+                            override fun onResponse(
+                                call: Call<CharacterCreate_o>,
+                                response: Response<CharacterCreate_o>
+                            ) {
+                                var res = response.body()
+                                if (res?.code.equals("0000")) {
+                                    var dialog = AlertDialog.Builder(this@make_char)
+                                    dialog.setMessage(res?.msg)
+                                    dialog.show()
+                                    //성공적으로 캐릭터 생성됨. 여기에 이후 동작 제공
+                                } else {
+                                    var dialog = AlertDialog.Builder(this@make_char)
+                                    dialog.setMessage("[" + res?.code + "]" + res?.msg)
+                                    dialog.show()
+                                }
+                            }
 
-            //이미지 크기 제한 두어야 함!! 혹은 여기서 변환해줄것!!
-            if(charactername.length in 1..10 && characterbio.length in 0..20){//길이 제한 및 입력확인
-                send_CharacterCreate.call(charactername, characterbio,image).enqueue(object : Callback<Login>{
-                    override fun onResponse(call: Call<Login>, response: Response<Login>) {
-                //통신성공
-                var login = response.body()
-                //통신 성공했을 때 화면 넘어가게
-                if (login?.code.equals("0000")) {
-                    AppSessionKey = login?.AppSessionKey!!
-                    val intent = Intent(this@MainActivity, main_list::class.java)
-                    startActivity(intent)
-                }
-                else {
-                    var dialog = AlertDialog.Builder(this@MainActivity)
-                    dialog.setMessage("["+login?.code + "]" + login?.msg) //response가 null일수도 있어서 '?'추가
-                    dialog.show()
+                            override fun onFailure(call: Call<CharacterCreate_o>, t: Throwable) {
+                                var dialog = AlertDialog.Builder(this@make_char)
+                                dialog.setMessage("서버 연결에 실패했습니다.")
+                                dialog.show()
+                            }
+                        })
+                } else {//이미지가 없는 경우
+                    send_CharacterCreate.call(charactername, characterbio)
+                        .enqueue(object : Callback<CharacterCreate_o> {
+                            override fun onResponse(
+                                call: Call<CharacterCreate_o>,
+                                response: Response<CharacterCreate_o>
+                            ) {
+                                var res = response.body()
+                                if (res?.code.equals("0000")) {
+                                    var dialog = AlertDialog.Builder(this@make_char)
+                                    dialog.setMessage(res?.msg)
+                                    dialog.show()
+                                    //성공적으로 캐릭터 생성됨. 여기에 이후 동작 제공
+                                } else {
+                                    var dialog = AlertDialog.Builder(this@make_char)
+                                    dialog.setMessage("[" + res?.code + "]" + res?.msg)
+                                    dialog.show()
+                                }
+                            }
+
+                            override fun onFailure(
+                                call: Call<CharacterCreate_o>,
+                                t: Throwable
+                            ) {
+                                var dialog = AlertDialog.Builder(this@make_char)
+                                dialog.setMessage("서버 연결에 실패했습니다.")
+                                dialog.show()
+                            }
+                        })
+
                 }
             }
-
-                override fun onFailure(call: Call<Login>, t: Throwable) {
-                    //웹통신 실패시
-                    //Log.d("DEBUG",t.message)
-                    var dialog = AlertDialog.Builder(this@MainActivity)
-                    dialog.setMessage("서버 연결에 실패했습니다.")
-                    dialog.show()
-                }
-            }
-            Toast.makeText(this, "절대좌표변환", Toast.LENGTH_SHORT).show()
-            var dialog = AlertDialog.Builder(this@make_char)
-            dialog.setMessage("clicked") //response가 null일수도 있어서 '?'추가
-            dialog.show()
-            }
-
-
         }
     }
     private fun checkPermission(){
@@ -129,7 +156,7 @@ class make_char : AppCompatActivity() {
                     val uri = data?.data
                      char_img.setImageURI(uri)
                      make_charprofile.visibility=View.INVISIBLE
-
+                    path=getRealPathFromURI(applicationContext, uri!!)!!
                 }
             }
         }
