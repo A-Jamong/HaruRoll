@@ -13,7 +13,7 @@ object RetrofitSetting{
     val httpClient = OkHttpClient.Builder()
     //retrofit 객체
     val baseBuilder = Retrofit.Builder()
-        .baseUrl("http://192.168.0.11:8000")//"http://192.168.0.11:8000")//"https://riul.pythonanywhere.com/")//
+        .baseUrl("https://riul.pythonanywhere.com/")//"http://192.168.0.11:8000")//"https://riul.pythonanywhere.com/")//
         .addConverterFactory(GsonConverterFactory.create())
     //객체생성
     fun <S> createBaseService(serviceClass: Class<S>?):S{
