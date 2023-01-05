@@ -6,18 +6,11 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.trpg_try.lib.getRealPathFromURI
-import com.example.trpg_try.session_create.send_SessionCreate
 import kotlinx.android.synthetic.main.activity_make_char.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
 
 class make_char : AppCompatActivity() {
         //통신을 위한 retrofit 객체
@@ -77,26 +70,14 @@ class make_char : AppCompatActivity() {
                 resultCode,
                 data
             )
-            if(resultCode==RESULT_OK){
+            if(resultCode==RESULT_OK&&data!=null){
                 when(requestCode){
                     FLAG_REQ_STORAGE->{
                         val uri = data?.data
-                        make_charprofile.visibility = View.INVISIBLE
                         char_img.setImageURI(uri)
+                        make_charprofile.visibility=View.INVISIBLE
                     }
                 }
-                // 저장 버튼 누르면 서버로 전송하게끔 하면 좋을듯!!
-                val uri = data?.data
-                val path = getRealPathFromURI(applicationContext, uri!!)
-                val file = File(path)
-                //println(file)
-                val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
-                val body = MultipartBody.Part.createFormData("character", file.name, requestFile)
-
-                Log.d("file to multipart",file.name)
-                send_SessionCreate("session1",body)
-
-                Toast.makeText(this, "절대좌표변환", Toast.LENGTH_SHORT).show()
             }
     }
 }
