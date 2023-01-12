@@ -14,5 +14,9 @@ class main_list : AppCompatActivity() {
             val intent = Intent(this@main_list, make_char::class.java)
             startActivity(intent)
         }
+        bt_newsession.setOnClickListener{
+            val intent = Intent(this@main_list, make_session::class.java)
+            startActivity(intent)
+        }
     }
 }
