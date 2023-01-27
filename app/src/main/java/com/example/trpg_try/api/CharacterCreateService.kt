@@ -17,7 +17,7 @@ data class CharacterCreate_o (
 interface CharacterCreateService {
     //@FormUrlEncoded
     @Multipart
-    @POST ("/character/create_wImg/")
+    @POST ("/character/create/")
     fun CharCreate(
         // input
         @Part ("AppSessionKey") AppSessionKey: String,

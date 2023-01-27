@@ -19,6 +19,7 @@ import com.example.trpg_try.lib.getRealPathFromURI
 import com.example.trpg_try.session_create.send_SessionCreate
 import kotlinx.android.synthetic.main.activity_make_char.*
 import kotlinx.android.synthetic.main.activity_signup_page.*
+import kotlinx.android.synthetic.main.main_list.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -39,72 +40,84 @@ class make_char : AppCompatActivity() {
             checkPermission()
         }
 
-        make_bt.setOnClickListener {
+        bt_newchar.setOnClickListener {
             var charactername = make_charname.text.toString()
             var characterbio = edit_word.text.toString()
-            if (charactername.length in 1..10 && characterbio.length in 0..20) {
-                if (path.isNotEmpty()) {
-                    val file = File(path)
-                    val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
-                    val body =
-                        MultipartBody.Part.createFormData("character", file.name, requestFile)
-                    //이미지 크기 제한 두어야 함!! 혹은 여기서 변환해줄것!!
-                    send_CharacterCreate_wImg.call(charactername, characterbio, body)
-                        .enqueue(object : Callback<CharacterCreate_o> {
-                            override fun onResponse(
-                                call: Call<CharacterCreate_o>,
-                                response: Response<CharacterCreate_o>
-                            ) {
-                                var res = response.body()
-                                if (res?.code.equals("0000")) {
+            if (charactername.length in 1..20 ) {
+                if (characterbio.length in 0..30) {
+                    if (path.isNotEmpty()) {
+                        val file = File(path)
+                        val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+                        val body =MultipartBody.Part.createFormData("character", file.name, requestFile)
+                        //이미지 크기 제한 두어야 함!! 혹은 여기서 변환해줄것!!
+                        Toast.makeText(this, "이미지잇음!!!ㅅ.", Toast.LENGTH_SHORT).show()
+
+                        send_CharacterCreate_wImg.call(charactername, characterbio, body)
+                            .enqueue(object : Callback<CharacterCreate_o> {
+                                override fun onResponse(
+                                    call: Call<CharacterCreate_o>,
+                                    response: Response<CharacterCreate_o>
+                                ) {
+                                    var res = response.body()
+                                    if (res?.code.equals("0000")) {
+                                        var dialog = AlertDialog.Builder(this@make_char)
+                                        dialog.setMessage(res?.msg)
+                                        dialog.show()
+                                        //성공적으로 캐릭터 생성됨. 여기에 이후 동작 제공
+                                    } else {
+                                        var dialog = AlertDialog.Builder(this@make_char)
+                                        dialog.setMessage("[" + res?.code + "]" + res?.msg)
+                                        dialog.show()
+                                    }
+                                }
+
+                                override fun onFailure(
+                                    call: Call<CharacterCreate_o>,
+                                    t: Throwable
+                                ) {
                                     var dialog = AlertDialog.Builder(this@make_char)
-                                    dialog.setMessage(res?.msg)
-                                    dialog.show()
-                                    //성공적으로 캐릭터 생성됨. 여기에 이후 동작 제공
-                                } else {
-                                    var dialog = AlertDialog.Builder(this@make_char)
-                                    dialog.setMessage("[" + res?.code + "]" + res?.msg)
+                                    dialog.setMessage("서버 연결에 실패했습니다.")
                                     dialog.show()
                                 }
-                            }
+                            })
+                    } else {//이미지가 없는 경우
+                        send_CharacterCreate.call(charactername, characterbio)
+                            .enqueue(object : Callback<CharacterCreate_o> {
+                                override fun onResponse(
+                                    call: Call<CharacterCreate_o>,
+                                    response: Response<CharacterCreate_o>
+                                ) {
+                                    var res = response.body()
+                                    if (res?.code.equals("0000")) {
+                                        var dialog = AlertDialog.Builder(this@make_char)
+                                        dialog.setMessage(res?.msg)
+                                        dialog.show()
+                                        //성공적으로 캐릭터 생성됨. 여기에 이후 동작 제공
+                                    } else {
+                                        var dialog = AlertDialog.Builder(this@make_char)
+                                        dialog.setMessage("[" + res?.code + "]" + res?.msg)
+                                        dialog.show()
+                                    }
+                                }
 
-                            override fun onFailure(call: Call<CharacterCreate_o>, t: Throwable) {
-                                var dialog = AlertDialog.Builder(this@make_char)
-                                dialog.setMessage("서버 연결에 실패했습니다.")
-                                dialog.show()
-                            }
-                        })
-                } else {//이미지가 없는 경우
-                    send_CharacterCreate.call(charactername, characterbio)
-                        .enqueue(object : Callback<CharacterCreate_o> {
-                            override fun onResponse(
-                                call: Call<CharacterCreate_o>,
-                                response: Response<CharacterCreate_o>
-                            ) {
-                                var res = response.body()
-                                if (res?.code.equals("0000")) {
+                                override fun onFailure(
+                                    call: Call<CharacterCreate_o>,
+                                    t: Throwable
+                                ) {
                                     var dialog = AlertDialog.Builder(this@make_char)
-                                    dialog.setMessage(res?.msg)
-                                    dialog.show()
-                                    //성공적으로 캐릭터 생성됨. 여기에 이후 동작 제공
-                                } else {
-                                    var dialog = AlertDialog.Builder(this@make_char)
-                                    dialog.setMessage("[" + res?.code + "]" + res?.msg)
+                                    dialog.setMessage("서버 연결에 실패했습니다.")
                                     dialog.show()
                                 }
-                            }
+                            })
 
-                            override fun onFailure(
-                                call: Call<CharacterCreate_o>,
-                                t: Throwable
-                            ) {
-                                var dialog = AlertDialog.Builder(this@make_char)
-                                dialog.setMessage("서버 연결에 실패했습니다.")
-                                dialog.show()
-                            }
-                        })
-
+                    }
                 }
+                else {
+                    Toast.makeText(this, "캐릭터 한마디는 30자 이하여야 합니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else {
+                Toast.makeText(this, "캐릭터 이름은 1자 이상 25자 이하여야 합니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
