@@ -4,10 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
-import com.example.trpg_try.api.AppSessionKey
-import com.example.trpg_try.api.Login
-import com.example.trpg_try.api.send_Login
 import com.example.trpg_try.character_list.Character
 import com.example.trpg_try.character_list.send_CharacterList
 import kotlinx.android.synthetic.main.main_list.*
@@ -45,10 +41,10 @@ class main_list : AppCompatActivity() {
                 dialog.show()
             }
         })
-//        bt_newchar.setOnClickListener{
-//            val intent = Intent(this@main_list, make_char::class.java)
-//            startActivity(intent)
-//        }
+        bt_newchar.setOnClickListener{
+            val intent = Intent(this@main_list, make_char::class.java)
+            startActivity(intent)
+        }
         bt_newsession.setOnClickListener{
             val intent = Intent(this@main_list, make_session::class.java)
             startActivity(intent)
