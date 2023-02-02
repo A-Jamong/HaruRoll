@@ -7,27 +7,19 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.trpg_try.api.AppSessionKey
-import com.example.trpg_try.api.Login
 import com.example.trpg_try.character_create.CharacterCreate_o
 import com.example.trpg_try.character_create.send_CharacterCreate
 import com.example.trpg_try.character_create.send_CharacterCreate_wImg
 import com.example.trpg_try.lib.getRealPathFromURI
-import com.example.trpg_try.session_create.send_SessionCreate
 import kotlinx.android.synthetic.main.activity_make_char.*
-import kotlinx.android.synthetic.main.activity_signup_page.*
-import kotlinx.android.synthetic.main.main_list.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
 class make_char : AppCompatActivity() {
@@ -40,7 +32,7 @@ class make_char : AppCompatActivity() {
             checkPermission()
         }
 
-        bt_newchar.setOnClickListener {
+        fin_makechar.setOnClickListener {
             var charactername = make_charname.text.toString()
             var characterbio = edit_word.text.toString()
             if (charactername.length in 1..20 ) {

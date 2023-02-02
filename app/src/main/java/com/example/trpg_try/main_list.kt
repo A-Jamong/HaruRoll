@@ -19,12 +19,22 @@ class main_list : AppCompatActivity() {
 //        dialog.setMessage("dddddd") //response가 null일수도 있어서 '?'추가
 //        dialog.show()
 
+        bt_newchar.setOnClickListener{
+            val intent = Intent(this@main_list, make_char::class.java)
+            startActivity(intent)
+        }
+
+        bt_newsession.setOnClickListener{
+            val intent = Intent(this@main_list, make_session::class.java)
+            startActivity(intent)
+        }
+
         send_CharacterList.call().enqueue(object : Callback<List<Character>> {
             override fun onResponse(call: Call<List<Character>>, response: Response<List<Character>>) {
                 var res = response.body()
                 println(res!![0].charname)
                 var dialog = AlertDialog.Builder(this@main_list)
-                dialog.setMessage("done!!!!!!!!!!@@@@@@@") //response가 null일수도 있어서 '?'추가
+                dialog.setMessage("done") //response가 null일수도 있어서 '?'추가
                 dialog.show()
                 //}
 //                else {
@@ -41,13 +51,5 @@ class main_list : AppCompatActivity() {
                 dialog.show()
             }
         })
-        bt_newchar.setOnClickListener{
-            val intent = Intent(this@main_list, make_char::class.java)
-            startActivity(intent)
-        }
-        bt_newsession.setOnClickListener{
-            val intent = Intent(this@main_list, make_session::class.java)
-            startActivity(intent)
-        }
     }
 }
