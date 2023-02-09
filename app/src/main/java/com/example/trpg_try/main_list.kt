@@ -2,8 +2,10 @@ package com.example.trpg_try
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+//import android.support.v7.app.AlertDialog
+//import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.trpg_try.character_list.Character
 import com.example.trpg_try.character_list.send_CharacterList
 import kotlinx.android.synthetic.main.main_list.*
@@ -32,10 +34,12 @@ class main_list : AppCompatActivity() {
         send_CharacterList.call().enqueue(object : Callback<List<Character>> {
             override fun onResponse(call: Call<List<Character>>, response: Response<List<Character>>) {
                 var res = response.body()
-                println(res!![0].charname)
-                var dialog = AlertDialog.Builder(this@main_list)
-                dialog.setMessage("done") //response가 null일수도 있어서 '?'추가
-                dialog.show()
+                if (!res.isNullOrEmpty()) {
+                    println(res!![9].charfigure)
+                }
+                    var dialog = AlertDialog.Builder(this@main_list)
+                    dialog.setMessage("done") //response가 null일수도 있어서 '?'추가
+                    dialog.show()
                 //}
 //                else {
 //                    var dialog = AlertDialog.Builder(this@main_list)

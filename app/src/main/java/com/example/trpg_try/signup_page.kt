@@ -3,9 +3,11 @@ package com.example.trpg_try
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+//import android.support.v7.app.AlertDialog
+//import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.trpg_try.api.*
 import kotlinx.android.synthetic.main.activity_signup_page.*
 import retrofit2.Call

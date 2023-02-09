@@ -16,7 +16,9 @@ import retrofit2.http.*
 //    var msg: String
 //)
 data class Character (
-    var charname : String
+    var charname : String,
+    var charbio : String,
+    var charfigure : String
 )
 interface CharacterListService {
     @GET ("/character/getList/")

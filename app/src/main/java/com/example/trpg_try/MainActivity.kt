@@ -2,8 +2,10 @@ package com.example.trpg_try
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+//import android.support.v7.app.AlertDialog
+//import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.trpg_try.api.AppSessionKey
 import com.example.trpg_try.api.Login
 import com.example.trpg_try.api.send_Login
