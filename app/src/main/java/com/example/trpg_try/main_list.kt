@@ -34,7 +34,7 @@ class main_list : AppCompatActivity() {
         send_CharacterList.call().enqueue(object : Callback<List<Character>> {
             override fun onResponse(call: Call<List<Character>>, response: Response<List<Character>>) {
                 var res = response.body()
-                if (!res.isNullOrEmpty()) {
+                if (!res.isNullOrEmpty()) {//
                     println(res!![9].charfigure)
                 }
                     var dialog = AlertDialog.Builder(this@main_list)
