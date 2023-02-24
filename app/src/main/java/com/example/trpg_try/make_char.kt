@@ -17,6 +17,8 @@ import com.example.trpg_try.character_create.CharacterCreate_o
 import com.example.trpg_try.character_create.send_CharacterCreate
 import com.example.trpg_try.character_create.send_CharacterCreate_wImg
 import com.example.trpg_try.lib.getRealPathFromURI
+//import id.zelory.compressor.Compressor
+//import id.zelory.compressor.constraint.format
 import kotlinx.android.synthetic.main.activity_make_char.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -25,7 +27,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import android.graphics.Bitmap
+import android.net.Uri
+//import id.zelory.compressor.constraint.size
+import java.lang.String.format
 
+//suspend fun compressfile(context: android.content.Context ,path: String):File{
+    //file의 크기가 size보다 크다면 size로 줄여서 리턴
+
+    //val file = File(path)
+    //val compressedImageFile = Compressor.compress(context,file) {
+  //      format(Bitmap.CompressFormat.JPEG)
+   //     size(2_097_152) // 2 MB = 2_097_152
+//    }
+//    return compressedImageFile
+//}
 class make_char : AppCompatActivity() {
     val FLAG_REQ_STORAGE = 100
     var path=""
@@ -42,10 +58,11 @@ class make_char : AppCompatActivity() {
             if (charactername.length in 1..20 ) {
                 if (characterbio.length in 0..30) {
                     if (path.isNotEmpty()) {
-                        val file = File(path)
+                        //이미지 크기 제한 두어야 함!! 혹은 여기서 변환해줄것!!
+                        //var file = compressfile(this ,path)
+                        var file = File(path)
                         val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
                         val body =MultipartBody.Part.createFormData("character", file.name, requestFile)
-                        //이미지 크기 제한 두어야 함!! 혹은 여기서 변환해줄것!!
                         Toast.makeText(this, "이미지잇음!!!ㅅ.", Toast.LENGTH_SHORT).show()
 
                         send_CharacterCreate_wImg.call(charactername, characterbio, body)

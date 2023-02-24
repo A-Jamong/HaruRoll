@@ -34,8 +34,8 @@ class main_list : AppCompatActivity() {
         send_CharacterList.call().enqueue(object : Callback<List<Character>> {
             override fun onResponse(call: Call<List<Character>>, response: Response<List<Character>>) {
                 var res = response.body()
-                if (!res.isNullOrEmpty()) {//
-                    println(res!![9].charfigure)
+                if (!res.isNullOrEmpty()) {// 캐릭터 정보가 존재하면
+                    //println(res!![1].charfigure) //첫번째 캐릭터사진의 주소 출력
                 }
                     var dialog = AlertDialog.Builder(this@main_list)
                     dialog.setMessage("done") //response가 null일수도 있어서 '?'추가
