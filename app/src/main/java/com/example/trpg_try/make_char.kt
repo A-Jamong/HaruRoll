@@ -27,8 +27,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import android.graphics.BitmapFactory
 import android.graphics.Bitmap
-import android.net.Uri
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import android.util.Log
 //import id.zelory.compressor.constraint.size
 import java.lang.String.format
 
@@ -58,10 +62,12 @@ class make_char : AppCompatActivity() {
             if (charactername.length in 1..20 ) {
                 if (characterbio.length in 0..30) {
                     if (path.isNotEmpty()) {
-                        //이미지 크기 제한 두어야 함!! 혹은 여기서 변환해줄것!!
-                        //var file = compressfile(this ,path)
                         var file = File(path)
-                        val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+                        //이미지 자르기 기능 넣어주면 좋을듯 ㅠㅠ
+
+                        var filesmall = resize(path,1048576)//1MB = 1048576 bytes //이미지 크기 변환
+                        //println("filelength:"+filesmall.length())
+                        val requestFile = RequestBody.create(MediaType.parse("image/*"), filesmall)
                         val body =MultipartBody.Part.createFormData("character", file.name, requestFile)
                         Toast.makeText(this, "이미지잇음!!!ㅅ.", Toast.LENGTH_SHORT).show()
 
@@ -188,3 +194,36 @@ class make_char : AppCompatActivity() {
         }
     }
 }
+fun resize(imgPath: String, size: Int): File{
+    var quality = 100
+    var imgsize =  File(imgPath).length()
+    var inputstream:InputStream? = null
+    var buffsize = Integer.MAX_VALUE
+    var filesmall= File(imgPath)
+    if (imgsize > size) {//1MB = 1048576 bytes
+        var filesmall: File = createTempFile()!!
+
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        try{
+            val bitmap = BitmapFactory.decodeFile(imgPath)
+            do{
+                if(bitmap != null){
+                    byteArrayOutputStream.reset()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream)
+                    buffsize = byteArrayOutputStream.size()
+                    quality -=10
+                    println("buffsize:" + buffsize)
+                }
+            } while (buffsize > size)
+            inputstream = ByteArrayInputStream(byteArrayOutputStream.toByteArray())
+            byteArrayOutputStream.close()
+            // input stream -> File
+            inputstream.use{input -> filesmall.outputStream().use{output->input.copyTo(output)} }
+            return filesmall
+        } catch(e:Exception){
+            Log.d( "Except-compressing:","${e.message}" )
+        }
+    }
+    return filesmall
+}
+
