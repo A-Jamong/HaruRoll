@@ -199,31 +199,40 @@ fun resize(imgPath: String, size: Int): File{
     var imgsize =  File(imgPath).length()
     var inputstream:InputStream? = null
     var buffsize = Integer.MAX_VALUE
-    var filesmall= File(imgPath)
-    if (imgsize > size) {//1MB = 1048576 bytes
-        var filesmall: File = createTempFile()!!
+    //var filesmall= File(imgPath)
 
-        val byteArrayOutputStream = ByteArrayOutputStream()
+    val bitmap_org = BitmapFactory.decodeFile(imgPath)
+
+    // 정사각형으로 자르기
+    val w = bitmap_org.width
+    val h = bitmap_org.height
+    var len = 0
+    if (w>h) {len=h}
+    else {len=w}
+    val bitmap = Bitmap.createBitmap(bitmap_org,0,0,len,len)
+    // 자르기 끝
+
+    val byteArrayOutputStream = ByteArrayOutputStream()
+    //if (imgsize > size) {//1MB = 1048576 bytes
+        var filesmall: File = createTempFile()!!
         try{
-            val bitmap = BitmapFactory.decodeFile(imgPath)
             do{
                 if(bitmap != null){
                     byteArrayOutputStream.reset()
                     bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream)
                     buffsize = byteArrayOutputStream.size()
                     quality -=10
-                    println("buffsize:" + buffsize)
+                    //println("buffsize:" + buffsize)
                 }
             } while (buffsize > size)
-            inputstream = ByteArrayInputStream(byteArrayOutputStream.toByteArray())
-            byteArrayOutputStream.close()
-            // input stream -> File
-            inputstream.use{input -> filesmall.outputStream().use{output->input.copyTo(output)} }
-            return filesmall
+
         } catch(e:Exception){
             Log.d( "Except-compressing:","${e.message}" )
         }
-    }
+    inputstream = ByteArrayInputStream(byteArrayOutputStream.toByteArray())
+    byteArrayOutputStream.close()
+    // input stream -> File
+    inputstream.use{input -> filesmall.outputStream().use{output->input.copyTo(output)} }
     return filesmall
 }
 
