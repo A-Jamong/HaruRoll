@@ -1,43 +1,44 @@
 package com.example.trpg_try
 
+//import android.support.v7.app.AlertDialog
+//import android.support.v7.app.AppCompatActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-//import android.support.v7.app.AlertDialog
-//import android.support.v7.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trpg_try.character_list.Character
 import com.example.trpg_try.character_list.send_CharacterList
-import kotlinx.android.synthetic.main.main_list.*
+import com.example.trpg_try.databinding.MainListBinding
+import com.example.trpg_try.databinding.MainListRecycleBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class main_list : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+    private lateinit var mainActivityBinding: MainListBinding
+    @SuppressLint("MissingInflatedId", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_list)
-//        var dialog = AlertDialog.Builder(this@main_list)
-//        dialog.setMessage("dddddd") //response가 null일수도 있어서 '?'추가
-//        dialog.show()
-        val test_board = findViewById<RecyclerView>(R.id.haru_recycler_view)
-        val itemlist = ArrayList<com.example.trpg_try.character_list.Character>()
-        val boardAdapter = char_adapter(itemlist)
+        mainActivityBinding = MainListBinding.inflate(layoutInflater)
+        setContentView(mainActivityBinding.root)
+        val testrecycle: RecyclerView = findViewById(R.id.main_recycler_view)
+        val itemlist = ArrayList<Character>()
+
+        val boardAdapter = Char_adapter(itemlist)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        testrecycle.adapter = boardAdapter
+        testrecycle.layoutManager = layoutManager
         boardAdapter.notifyDataSetChanged()
-
-        test_board.adapter = boardAdapter
-        test_board.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        bt_newchar.setOnClickListener{
+        
+        mainActivityBinding.btNewchar.setOnClickListener{
             val intent = Intent(this@main_list, make_char::class.java)
             startActivity(intent)
         }
 
-        bt_newsession.setOnClickListener{
+        mainActivityBinding.btNewsession.setOnClickListener{
             val intent = Intent(this@main_list, make_session::class.java)
             startActivity(intent)
         }

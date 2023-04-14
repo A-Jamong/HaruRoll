@@ -19,7 +19,6 @@ import com.example.trpg_try.character_create.send_CharacterCreate_wImg
 import com.example.trpg_try.lib.getRealPathFromURI
 //import id.zelory.compressor.Compressor
 //import id.zelory.compressor.constraint.format
-import kotlinx.android.synthetic.main.activity_make_char.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -33,6 +32,7 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import android.util.Log
+import com.example.trpg_try.databinding.ActivityMakeCharBinding
 //import id.zelory.compressor.constraint.size
 import java.lang.String.format
 
@@ -49,16 +49,18 @@ import java.lang.String.format
 class make_char : AppCompatActivity() {
     val FLAG_REQ_STORAGE = 100
     var path=""
+    private lateinit var makeCharBinding: ActivityMakeCharBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_make_char)
-        make_charprofile.setOnClickListener{
+        makeCharBinding = ActivityMakeCharBinding.inflate(layoutInflater)
+        setContentView(makeCharBinding.root)
+        makeCharBinding.makeCharimg.setOnClickListener{
             checkPermission()
         }
 
-        fin_makechar.setOnClickListener {
-            var charactername = make_charname.text.toString()
-            var characterbio = edit_word.text.toString()
+        makeCharBinding.finMakechar.setOnClickListener {
+            var charactername = makeCharBinding.makeCharname.text.toString()
+            var characterbio = makeCharBinding.editWord.text.toString()
             if (charactername.length in 1..20 ) {
                 if (characterbio.length in 0..30) {
                     if (path.isNotEmpty()) {
@@ -186,8 +188,8 @@ class make_char : AppCompatActivity() {
             when(requestCode){
                 FLAG_REQ_STORAGE->{
                     val uri = data?.data
-                     char_img.setImageURI(uri)
-                     make_charprofile.visibility=View.INVISIBLE
+                    makeCharBinding.charImg.setImageURI(uri)
+                    makeCharBinding.makeCharimg.visibility=View.INVISIBLE
                     path=getRealPathFromURI(applicationContext, uri!!)!!
                 }
             }

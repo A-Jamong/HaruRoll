@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="TRPG_TRY">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/java/com/example/trpg_try/api/TRPG_TRY.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

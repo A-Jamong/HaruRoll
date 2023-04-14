@@ -79,7 +79,7 @@
       app:srcCompat="@drawable/char_line"/>
 
   <ImageButton
-      android:id="@+id/make_charprofile"
+      android:id="@+id/make_charimg"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:backgroundTint="#00FFFFFF"

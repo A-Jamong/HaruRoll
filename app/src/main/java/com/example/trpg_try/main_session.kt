@@ -4,17 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 //import android.support.v7.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.main_session.*
+import com.example.trpg_try.databinding.MainSessionBinding
 
 class main_session : AppCompatActivity() {
+    private lateinit var mainSessionBinding: MainSessionBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_session)
-        session_select_01.setOnClickListener{
+        mainSessionBinding = MainSessionBinding.inflate(layoutInflater)
+        setContentView(mainSessionBinding.root)
+        mainSessionBinding.sessionSelect01.setOnClickListener{
             val intent = Intent(this, roadimage::class.java)
             startActivity(intent)
         }
-        session_select_02.setOnClickListener{
+        mainSessionBinding.sessionSelect02.setOnClickListener{
             val intent = Intent(this, roadimage::class.java)
             startActivity(intent)
         }

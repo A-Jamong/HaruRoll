@@ -9,9 +9,9 @@ import androidx.core.content.ContextCompat
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.trpg_try.databinding.RoadimageBinding
 import com.example.trpg_try.lib.getRealPathFromURI
 import com.example.trpg_try.session_create.send_SessionCreate
-import kotlinx.android.synthetic.main.roadimage.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -21,6 +21,7 @@ import java.io.File
 
 
 class roadimage : AppCompatActivity() {
+    private lateinit var roadimageBinding: RoadimageBinding
 
     //통신을 위한 retrofit 객체
     var retrofit = Retrofit.Builder()
@@ -33,8 +34,9 @@ class roadimage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.roadimage)
-        img_bt.setOnClickListener{
+        roadimageBinding = RoadimageBinding.inflate(layoutInflater)
+        setContentView(roadimageBinding.root)
+        roadimageBinding.imgBt.setOnClickListener{
             checkPermission()
         }
     }
@@ -92,7 +94,7 @@ class roadimage : AppCompatActivity() {
             when(requestCode){
                 FLAG_REQ_STORAGE->{
                     val uri = data?.data
-                    sessionimg.setImageURI(uri)
+                    roadimageBinding.sessionimg.setImageURI(uri)
                 }
             }
 

@@ -9,20 +9,22 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trpg_try.api.*
-import kotlinx.android.synthetic.main.activity_signup_page.*
+import com.example.trpg_try.databinding.ActivitySignupPageBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.regex.Pattern
 
 class signup_page : AppCompatActivity() {
+    private lateinit var activitySignUpBinding: ActivitySignupPageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activitySignUpBinding = ActivitySignupPageBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_signup_page)
         var B_EmailCheck = false
         var B_idoverlap = false
-        bt_idoverlap.setOnClickListener {
-            var userid = signup_id.text.toString()
+        activitySignUpBinding.btIdoverlap.setOnClickListener {
+            var userid = activitySignUpBinding.signupId.text.toString()
             if(! userid.isBlank()){
                 check_IDOverlap.call(userid).enqueue(object : Callback<MSG> {
                     override fun onResponse(
@@ -52,8 +54,8 @@ class signup_page : AppCompatActivity() {
                 })
             }
         }
-        check_email.setOnClickListener {
-            var email = email.text.toString()
+        activitySignUpBinding.checkEmail.setOnClickListener {
+            var email = activitySignUpBinding.email.text.toString()
             if(! email.isBlank()){
                 //send_VerificationEmail(email)
                 send_VerificationEmail.call(email).enqueue(object : Callback<MSG> {
@@ -84,21 +86,21 @@ class signup_page : AppCompatActivity() {
                 })
             }
             var timer = 180
-            countTimer.visibility = View.VISIBLE
+            activitySignUpBinding.countTimer.visibility = View.VISIBLE
             object :CountDownTimer(300000, 1000){
                 override fun onTick(p0: Long) {
-                    countTimer.text = timer.toString() + "초"
+                    activitySignUpBinding.countTimer.text = timer.toString() + "초"
                     timer --
                 }
 
                 override fun onFinish() {
-                    countTimer.visibility = View.INVISIBLE
+                    activitySignUpBinding.countTimer.visibility = View.INVISIBLE
                 }
             }.start()
         }
-        check_authentication.setOnClickListener {
-            var email = email.text.toString()
-            var I_authentication = input_authentication.text.toString()
+        activitySignUpBinding.checkAuthentication.setOnClickListener {
+            var email = activitySignUpBinding.email.text.toString()
+            var I_authentication = activitySignUpBinding.inputAuthentication.text.toString()
             if(! (email.isBlank()||I_authentication.isBlank()) ){
                 check_VerificationEmail.call(email,I_authentication).enqueue(object : Callback<MSG> {
                     override fun onResponse(
@@ -128,12 +130,12 @@ class signup_page : AppCompatActivity() {
             }
         }
 
-        signup_end.setOnClickListener{
-            var userid = signup_id.text.toString()
-            var nickname = nickname.text.toString()
-            var pw = signup_password.text.toString()
-            var pw2 = overlap_password.text.toString()
-            var email = email.text.toString()
+        activitySignUpBinding.signupEnd.setOnClickListener{
+            var userid = activitySignUpBinding.signupId.text.toString()
+            var nickname = activitySignUpBinding.nickname.text.toString()
+            var pw = activitySignUpBinding.signupPassword.text.toString()
+            var pw2 = activitySignUpBinding.overlapPassword.text.toString()
+            var email = activitySignUpBinding.email.text.toString()
             var B_PwCheck = false
             if (userid.isBlank()){
                 var dialog = AlertDialog.Builder(this@signup_page)

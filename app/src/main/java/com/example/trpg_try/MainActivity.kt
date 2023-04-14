@@ -9,21 +9,22 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.trpg_try.api.AppSessionKey
 import com.example.trpg_try.api.Login
 import com.example.trpg_try.api.send_Login
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.trpg_try.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var mainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        bt_signup.setOnClickListener {
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mainBinding.root)
+        mainBinding.btSignup.setOnClickListener {
             val intent = Intent(this, signup_page::class.java)
             startActivity(intent)
         }
-        bt_login.setOnClickListener {
+        mainBinding.btLogin.setOnClickListener {
 //            var textID = signin_id.text.toString()
 //            var textPW = input_pw.text.toString()
 //            var respond = send_Login(textID, textPW)
@@ -34,8 +35,8 @@ class MainActivity : AppCompatActivity() {
 //                val intent = Intent(this@MainActivity, main_session::class.java)
 //                startActivity(intent)
 //            }
-            var textID = signin_id.text.toString()
-            var textPW = input_pw.text.toString()
+            var textID = mainBinding.signinId.text.toString()
+            var textPW = mainBinding.inputPw.text.toString()
             send_Login.call(textID, textPW).enqueue(object : Callback<Login> {
                 override fun onResponse(call: Call<Login>, response: Response<Login>) {
                     //통신성공

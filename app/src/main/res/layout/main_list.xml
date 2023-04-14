@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context=".main_list"
     tools:ignore="ExtraText">
-
+    <include layout="@layout/main_list_recycle" />
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="391dp"
