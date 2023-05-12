@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trpg_try.character_list.Character
 import com.example.trpg_try.character_list.send_CharacterList
 import com.example.trpg_try.databinding.MainListBinding
-import com.example.trpg_try.databinding.MainListRecycleBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

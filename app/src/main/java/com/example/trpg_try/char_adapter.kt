@@ -10,7 +10,7 @@ import com.example.trpg_try.character_list.Character
 class Char_adapter(val items: ArrayList<Character>) :
     RecyclerView.Adapter<Char_adapter.HaruHolder>() {
     inner class HaruHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val test1= itemView.findViewById<TextView>(R.id.myname)
+        val nameTextview: TextView= itemView.findViewById(R.id.nametest)
     }
     override fun getItemCount(): Int {
         return items.count()
@@ -21,7 +21,7 @@ class Char_adapter(val items: ArrayList<Character>) :
         return HaruHolder(view)
     }
     override fun onBindViewHolder(holder: HaruHolder, position: Int) {
-        holder.test1.text = items[position].charname
+        holder.nameTextview.text = items[position].charname
     }
 
 }

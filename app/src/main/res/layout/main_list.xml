@@ -7,7 +7,6 @@
     android:background="@color/white"
     tools:context=".main_list"
     tools:ignore="ExtraText">
-    <include layout="@layout/main_list_recycle" />
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="391dp"
@@ -119,8 +118,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="22dp"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -153,7 +152,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/bt_char" />
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/profile3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -165,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/bt_char" />
+                android:background="@drawable/bt_char" />-->
         </LinearLayout>
 
 
@@ -221,5 +220,16 @@
                 app:srcCompat="@drawable/bt_makesession" />
         </LinearLayout>
     </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/nametest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
