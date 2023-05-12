@@ -23,14 +23,14 @@ class main_list : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mainActivityBinding = MainListBinding.inflate(layoutInflater)
         setContentView(mainActivityBinding.root)
-        val testrecycle: RecyclerView = findViewById(R.id.main_recycler_view)
+        /*val testrecycle: RecyclerView = findViewById(R.id.main_recycler_view)
         val itemlist = ArrayList<Character>()
 
         val boardAdapter = Char_adapter(itemlist)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         testrecycle.adapter = boardAdapter
         testrecycle.layoutManager = layoutManager
-        boardAdapter.notifyDataSetChanged()
+        boardAdapter.notifyDataSetChanged()*/
         
         mainActivityBinding.btNewchar.setOnClickListener{
             val intent = Intent(this@main_list, make_char::class.java)
