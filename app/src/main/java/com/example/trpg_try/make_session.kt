@@ -78,7 +78,6 @@ class make_session : AppCompatActivity() {
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
                     makeSessionBinding.btSessioncard.setImageURI(uri)
-                    makeSessionBinding.btSessioncard.visibility = View.INVISIBLE
                     path = getRealPathFromURI(applicationContext, uri!!)!!
                 }
             }
