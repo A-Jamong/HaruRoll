@@ -17,6 +17,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".chat_adpter"
+            android:exported="false"
+            android:label="@string/title_activity_chat_adpter"
+            android:theme="@style/Theme.TRPG_TRY" />
+        <activity
+            android:name=".chat"
+            android:exported="false"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/Theme.TRPG_TRY" />
+        <activity
             android:name=".make_session"
             android:exported="false">
             <meta-data

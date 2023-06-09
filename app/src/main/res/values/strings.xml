@@ -2,5 +2,7 @@
     <string name="app_name">TRPG_TRY</string>
     <string name="main_session_title">세션</string>
     <string name="main_character_title">캐릭터</string>
+    <string name="title_activity_chat">chat</string>
+    <string name="title_activity_chat_adpter">chat_adpter</string>
 
 </resources>

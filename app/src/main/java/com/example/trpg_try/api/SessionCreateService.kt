@@ -42,7 +42,7 @@ fun send_SessionCreate(sessionname : String ,image : MultipartBody.Part) {
 
     call.enqueue(object : Callback<SessionCreate_o> {
         override fun onResponse(call: Call<SessionCreate_o>, response: Response<SessionCreate_o>) {
-            if (response?.isSuccessful) {
+            if (response?.isSuccessful == true) {
                 var res = response.body()
                 Log.d("Send_login: ","code "+res?.code+"/ msg "+res?.msg)
             }
