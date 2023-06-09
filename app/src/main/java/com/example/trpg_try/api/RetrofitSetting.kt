@@ -9,7 +9,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 var AppSessionKey = "-1"
-var ServerUrl = "http://192.168.0.11:8000/"//"http://192.168.0.11:8000")//"https://riul.pythonanywhere.com/"
+var ServerUrl = "https://riul.pythonanywhere.com/"//"http://192.168.0.11:8000")//"https://riul.pythonanywhere.com/"
 object RetrofitSetting{
     val httpClient = OkHttpClient.Builder()
     //retrofit 객체
