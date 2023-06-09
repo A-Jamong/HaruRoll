@@ -107,7 +107,7 @@ class roadimage : AppCompatActivity() {
             val body = MultipartBody.Part.createFormData("character", file.name, requestFile)
 
             Log.d("file to multipart",file.name)
-            send_SessionCreate("session1",body)
+            //ㅅsend_SessionCreate("session1",body)
 
             Toast.makeText(this, "절대좌표변환", Toast.LENGTH_SHORT).show()
 

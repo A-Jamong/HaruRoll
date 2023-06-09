@@ -7,6 +7,7 @@ import okhttp3.MultipartBody
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
+//Session room 관련 함수임!!
 
 data class SessionCreate_o (
     var code: String,
@@ -15,44 +16,35 @@ data class SessionCreate_o (
 interface SessionCreateService {
     //@FormUrlEncoded
     @Multipart
-    @POST ("/character/create/")
+    @POST ("/sessroom/create/")
     fun SessCreate(
         // input
         @Part ("AppSessionKey") AppSessionKey: String,
-        @Part("charname") charname:String,
-        @Part charfigure : MultipartBody.Part,
+        @Part("sessionname") sessionname:String,
     ):Call<SessionCreate_o> //output
 }
-
-//interface SessionCreateService {
-//    //@FormUrlEncoded
-//    @Multipart
-//    @POST ("/session/create/")
-//    fun SessCreate(
-//        // input
-//        @Part("sessionname") sessionname:String,
-//        @Part image : MultipartBody.Part,
-//    ):Call<SessionCreate_o> //output
-//}
-
+interface SessionCreateServiceWImg {
+    //@FormUrlEncoded
+    @Multipart
+    @POST ("/sessroom/create_wImg/")
+    fun SessCreate(
+        // input
+        @Part ("AppSessionKey") AppSessionKey: String,
+        @Part("sessionname") sessionname:String,
+        @Part sessfigure : MultipartBody.Part,
+    ):Call<SessionCreate_o> //output
+}
 //웹서버로 전송
-fun send_SessionCreate(sessionname : String ,image : MultipartBody.Part) {
+object send_SessionCreate_wImg{
+    val service = RetrofitSetting.createBaseService(SessionCreateServiceWImg::class.java) //레트로핏 통신 설정
+    fun call(sessionname: String, image : MultipartBody.Part):Call<SessionCreate_o>{
+        return service.SessCreate(AppSessionKey,sessionname,image )
+    }
+}
+//웹서버로 전송
+object send_SessionCreate{
     val service = RetrofitSetting.createBaseService(SessionCreateService::class.java) //레트로핏 통신 설정
-    val call = service.SessCreate(AppSessionKey,sessionname, image)!! //통신 API 패스 설정
-
-    call.enqueue(object : Callback<SessionCreate_o> {
-        override fun onResponse(call: Call<SessionCreate_o>, response: Response<SessionCreate_o>) {
-            if (response?.isSuccessful) {
-                var res = response.body()
-                Log.d("Send_login: ","code "+res?.code+"/ msg "+res?.msg)
-            }
-            else {
-                Log.d("Send_sessionCreate: ","fail")
-            }
-        }
-
-        override fun onFailure(call: Call<SessionCreate_o>, t: Throwable) {
-            Log.d("Send_sessionCreate: ","fail")
-        }
-    })
+    fun call(sessionname : String ):Call<SessionCreate_o>{
+        return service.SessCreate(AppSessionKey,sessionname)
+    }
 }

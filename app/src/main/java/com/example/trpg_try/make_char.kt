@@ -71,7 +71,7 @@ class make_char : AppCompatActivity() {
                         //println("filelength:"+filesmall.length())
                         val requestFile = RequestBody.create(MediaType.parse("image/*"), filesmall)
                         val body =MultipartBody.Part.createFormData("character", file.name, requestFile)
-                        Toast.makeText(this, "이미지잇음!!!ㅅ.", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this, "이미지잇음!!!ㅅ.", Toast.LENGTH_SHORT).show()
 
                         send_CharacterCreate_wImg.call(charactername, characterbio, body)
                             .enqueue(object : Callback<CharacterCreate_o> {
