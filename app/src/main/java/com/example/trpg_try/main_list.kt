@@ -31,6 +31,12 @@ class main_list : AppCompatActivity() {
         testrecycle.adapter = boardAdapter
         testrecycle.layoutManager = layoutManager
         boardAdapter.notifyDataSetChanged()*/
+
+        //임시로 채팅방으로 넘어가는 버튼
+        mainActivityBinding.imageView5.setOnClickListener {
+            val intent = Intent(this@main_list, chat::class.java)
+            startActivity(intent)
+        }
         
         mainActivityBinding.btNewchar.setOnClickListener{
             val intent = Intent(this@main_list, make_char::class.java)

@@ -53,7 +53,7 @@ fun send_VerificationEmail2(email: String) : String {
     var respond = "9999" //통신 실패시 9999, 성공시 0000, 아이디/비번불일치 1001
     call.enqueue(object : Callback<MSG> {
         override fun onResponse(call: Call<MSG>, response: Response<MSG>) {
-            if (response?.isSuccessful) {
+            if (response?.isSuccessful == true) {
                 var res = response.body()
                 Log.d("Send_login: ","code "+res?.code+"/ msg "+res?.msg)
                 respond = res?.code!!
