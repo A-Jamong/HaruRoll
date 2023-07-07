@@ -1,5 +1,6 @@
 package com.example.trpg_try
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -28,11 +29,14 @@ import retrofit2.Response
 import java.io.File
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import android.util.Log
 import com.example.trpg_try.databinding.ActivityMakeCharBinding
+import java.io.FileOutputStream
 //import id.zelory.compressor.constraint.size
 import java.lang.String.format
 
@@ -48,7 +52,7 @@ import java.lang.String.format
 //}
 class make_char : AppCompatActivity() {
     val FLAG_REQ_STORAGE = 100
-    var path=""
+    var file : File? = null
     private lateinit var makeCharBinding: ActivityMakeCharBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,20 +61,21 @@ class make_char : AppCompatActivity() {
         makeCharBinding.makeCharimg.setOnClickListener{
             checkPermission()
         }
-
         makeCharBinding.finMakechar.setOnClickListener {
+            println("ddcc")
             var charactername = makeCharBinding.makeCharname.text.toString()
             var characterbio = makeCharBinding.editWord.text.toString()
             if (charactername.length in 1..20 ) {
                 if (characterbio.length in 0..30) {
-                    if (path.isNotEmpty()) {
-                        var file = File(path)
+                    if (file!=null) {
+                        println("hered")
                         //이미지 자르기 기능 넣어주면 좋을듯 ㅠㅠ
 
-                        var filesmall = resize(path,1048576)//1MB = 1048576 bytes //이미지 크기 변환
+                        println("heredeee")
+                        var filesmall = resize(file!!,102400)//100kB = 1048576 bytes //이미지 크기 변환
                         //println("filelength:"+filesmall.length())
                         val requestFile = RequestBody.create(MediaType.parse("image/*"), filesmall)
-                        val body =MultipartBody.Part.createFormData("character", file.name, requestFile)
+                        val body =MultipartBody.Part.createFormData("character", file!!.name, requestFile)
                         //Toast.makeText(this, "이미지잇음!!!ㅅ.", Toast.LENGTH_SHORT).show()
 
                         send_CharacterCreate_wImg.call(charactername, characterbio, body)
@@ -184,26 +189,36 @@ class make_char : AppCompatActivity() {
             resultCode,
             data
         )
+
         if(resultCode==RESULT_OK&&data!=null){
             when(requestCode){
                 FLAG_REQ_STORAGE->{
                     val uri = data?.data
-                    makeCharBinding.charImg.setImageURI(uri)
-                    makeCharBinding.makeCharimg.visibility=View.INVISIBLE
-                    path=getRealPathFromURI(applicationContext, uri!!)!!
+                    file = getFileFromUri(applicationContext, uri!!)
+                    makeCharBinding.makeCharimg.setImageURI(uri)
                 }
             }
         }
     }
 }
-fun resize(imgPath: String, size: Int): File{
+fun getFileFromUri(context: Context, uri: Uri):File?{
+    val inputStream = context.contentResolver.openInputStream(uri)
+    val tempFile = File(context.cacheDir, "img.jpg")
+    tempFile.createNewFile()
+    inputStream?.use { input ->
+        FileOutputStream(tempFile).use { output ->
+            input.copyTo(output)
+        }
+    }
+    return tempFile
+}
+fun resize(file: File, size: Int): File{
     var quality = 100
-    var imgsize =  File(imgPath).length()
+    var imgsize =  file.length()
     var inputstream:InputStream? = null
     var buffsize = Integer.MAX_VALUE
     //var filesmall= File(imgPath)
-
-    val bitmap_org = BitmapFactory.decodeFile(imgPath)
+    val bitmap_org = BitmapFactory.decodeFile(file.absolutePath)
 
     // 정사각형으로 자르기
     val w = bitmap_org.width

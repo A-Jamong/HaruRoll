@@ -25,10 +25,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import com.example.trpg_try.resize
 
 class make_session : AppCompatActivity() {
     val FLAG_REQ_STORAGE = 100
-    var path=""
+    var file : File? = null
     private lateinit var makeSessionBinding: ActivityMakeSessionBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +42,14 @@ class make_session : AppCompatActivity() {
             var sessionname = makeSessionBinding.sessionName.text.toString()
             var Validity_SessionName : Boolean = checkValidation_SessionName(this,sessionname)
             if (Validity_SessionName){
-                if (path.isNotEmpty()) { //이미지 있음
-                    var file = File(path)
+                if (file != null) { //이미지 있음
                     //이미지 자르기 기능 넣어주면 좋을듯 ㅠㅠ
 
-                    var filesmall = resize(path,1048576)//1MB = 1048576 bytes //이미지 크기 변환
+                    var filesmall = resize(file!!,102400)//1MB = 1048576 bytes //이미지 크기 변환
+
                     //println("filelength:"+filesmall.length())
                     val requestFile = RequestBody.create(MediaType.parse("image/*"), filesmall)
-                    val body =MultipartBody.Part.createFormData("sessfig", file.name, requestFile)
+                    val body =MultipartBody.Part.createFormData("sessfig", file!!.name, requestFile)
 
                     send_SessionCreate_wImg.call(sessionname,body)
                         .enqueue(object : Callback<SessionCreate_o> {
@@ -166,8 +167,8 @@ class make_session : AppCompatActivity() {
             when (requestCode) {
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
+                    file = getFileFromUri(applicationContext, uri!!)
                     makeSessionBinding.btSessioncard.setImageURI(uri)
-                    path = getRealPathFromURI(applicationContext, uri!!)!!
                 }
             }
         }
@@ -182,3 +183,4 @@ fun checkValidation_SessionName(context: AppCompatActivity,sessionname:String): 
         return false
     }
 }
+
